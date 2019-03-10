@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.subhbash.ppmtool.domain.Project;
+import com.subhbash.ppmtool.exceptions.ProjectIdException;
 import com.subhbash.ppmtool.repository.ProjectRepository;
 
 @Service
@@ -14,8 +15,25 @@ public class ProjectService {
 	
 	public Project saveOrUpdateProject(Project project) {
 		
-		// logic 
+		// logic
+		try {
+			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+			return projectRepository.save(project);
+			
+		} catch (Exception e) {
+			throw new ProjectIdException("Project Id '"+project.getProjectIdentifier().toUpperCase()+"' already exists");
+
+		}	
+	}
+	
+	public Project findProjectByIdentifier(String projectId) {
 		
-		return projectRepository.save(project);
+		Project project  = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+		
+		if (project == null) {
+			throw new ProjectIdException("Project Id '" + projectId+"' does not exists.");
+		}
+		return project;
+
 	}
 }
