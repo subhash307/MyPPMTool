@@ -9,7 +9,7 @@ import com.subhbash.ppmtool.repository.ProjectRepository;
 
 @Service
 public class ProjectService {
-
+	
 	@Autowired
 	private ProjectRepository projectRepository;
 	
@@ -17,6 +17,7 @@ public class ProjectService {
 		
 		// logic
 		try {
+			
 			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 			return projectRepository.save(project);
 			
