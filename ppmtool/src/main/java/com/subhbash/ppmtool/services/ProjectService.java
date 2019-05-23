@@ -3,8 +3,10 @@ package com.subhbash.ppmtool.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.subhbash.ppmtool.domain.Backlog;
 import com.subhbash.ppmtool.domain.Project;
 import com.subhbash.ppmtool.exceptions.ProjectIdException;
+import com.subhbash.ppmtool.repository.BacklogRepository;
 import com.subhbash.ppmtool.repository.ProjectRepository;
 
 @Service
@@ -13,12 +15,24 @@ public class ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 	
+	@Autowired
+	private BacklogRepository backlogRepository;
+	
 	public Project saveOrUpdateProject(Project project) {
-		
+		String pIdentifier = project.getProjectIdentifier().toUpperCase();
 		// logic
 		try {
+			project.setProjectIdentifier(pIdentifier);
 			
-			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+			if(project.getId() == null) {
+				Backlog backlog = new Backlog();
+				project.setBacklog(backlog);
+				backlog.setProject(project);
+				backlog.setProjectIdentifier(pIdentifier);
+			}
+			if(project.getId() != null) {
+				project.setBacklog(backlogRepository.findByProjectIdentifier(pIdentifier));
+			}
 			return projectRepository.save(project);
 			
 		} catch (Exception e) {
