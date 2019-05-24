@@ -30,16 +30,16 @@ public class ProjectTaskService {
 		Integer BacklogSequence = backlog.getPTSequence();
 		// Update the BL sequence
 		BacklogSequence++;
-		
+		backlog.setPTSequence(BacklogSequence);
 		// Add sequence to ProjectTask
 		projectTask.setProjectSequence(projectIdentifier+"-"+BacklogSequence);
 		projectTask.setProjectIdentifier(projectIdentifier);
 		
 		//INITIAL Priority when priority  null
-//		if(projectTask.getPriority() == 0 || projectTask.getPriority()==null) {
-//			projectTask.setPriority(3);
-//			
-//		}
+		if(projectTask.getPriority()==null) {
+			projectTask.setPriority(3);
+			
+		}
 		if(projectTask.getStatus() == "" || projectTask.getStatus() == null) {
 			projectTask.setStatus("TO_DO");
 		}
