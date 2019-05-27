@@ -26,9 +26,9 @@ public class Backlog {
 	
 	// OneToOne with project
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="project_id", nullable = false)
-	@JsonIgnore
-	private Project project;
+    @JoinColumn(name="project_id",nullable = false)
+    @JsonIgnore
+    private Project project;
 	
 	//OneToMany with projectTask
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "backlog")
