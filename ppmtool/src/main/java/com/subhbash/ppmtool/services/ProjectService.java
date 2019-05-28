@@ -19,19 +19,19 @@ public class ProjectService {
 	private BacklogRepository backlogRepository;
 	
 	public Project saveOrUpdateProject(Project project) {
-		String pIdentifier = project.getProjectIdentifier().toUpperCase();
+		//String pIdentifier = project.getProjectIdentifier().toUpperCase();
 		// logic
 		try {
-			project.setProjectIdentifier(pIdentifier);
+			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 			
 			if(project.getId() == null) {
 				Backlog backlog = new Backlog();
 				project.setBacklog(backlog);
 				backlog.setProject(project);
-				backlog.setProjectIdentifier(pIdentifier);
+				backlog.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 			}
 			if(project.getId() != null) {
-				project.setBacklog(backlogRepository.findByProjectIdentifier(pIdentifier));
+				project.setBacklog(backlogRepository.findByProjectIdentifier(project.getProjectIdentifier().toUpperCase()));
 			}
 			return projectRepository.save(project);
 			
