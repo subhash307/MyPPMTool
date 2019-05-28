@@ -3,6 +3,7 @@ package com.subhbash.ppmtool.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.subhbash.ppmtool.domain.Backlog;
@@ -68,5 +69,14 @@ public class ProjectTaskService {
 		}
 		
 		return projectTaskRepository.findByProjectIdentifierOrderByPriority(id);
+	}
+	
+	public ProjectTask findPTByProjectSequence(String backlog_id, String pt_id) {
+		
+//		public Iterable<ProjectTask>
+//		ProjectTask projectTask = projectTaskRepository.findByProjectSequence(pt_id);
+//		if()	
+		return projectTaskRepository.findByProjectSequence(pt_id);
+		
 	}
 }
