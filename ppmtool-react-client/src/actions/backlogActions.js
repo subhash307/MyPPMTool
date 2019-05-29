@@ -1,11 +1,23 @@
 import axios from "axios";
-import {} from "../actions/types";
+import { GET_ERRORS } from "../actions/types";
+import errorReducer from "../reducers/errorReducer";
 
 export const addProjectTask = (
   backlog_id,
   project_task,
   history
 ) => async dispatch => {
-  await axios.post(`/api/backlog/${backlog_id}`, project_task);
-  history.push(`/projectBoard/${backlog_id}`);
+  try {
+    await axios.post(`/api/backlog/${backlog_id}`, project_task);
+    history.push(`/projectBoard/${backlog_id}`);
+    dispatch({
+      type: GET_ERRORS,
+      payload: {}
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
 };
