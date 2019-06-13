@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.subhbash.ppmtool.domain.User;
 import com.subhbash.ppmtool.services.MapValidationErrorService;
 import com.subhbash.ppmtool.services.UserService;
+import com.subhbash.ppmtool.validator.UserValidator;
 
 @RestController
 @RequestMapping("/api/users")
@@ -24,11 +25,14 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserValidator userValidator;
 
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
 		// validate password match
-		
+		userValidator.validate(user, result);	
 		
 		ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
 		
@@ -38,5 +42,7 @@ public class UserController {
 		
 
 	}
+	
+	
 
 }
