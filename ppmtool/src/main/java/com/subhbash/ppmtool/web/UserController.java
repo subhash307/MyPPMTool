@@ -23,7 +23,7 @@ import com.subhbash.ppmtool.services.MapValidationErrorService;
 import com.subhbash.ppmtool.services.UserService;
 import com.subhbash.ppmtool.validator.UserValidator;
 
-import static com.subhbash.ppmtool.security.SecurityConstants.TOKEN_PREFIX;;
+import static com.subhbash.ppmtool.security.SecurityConstants.TOKEN_PREFIX;
 
 @RestController
 @RequestMapping("/api/users")
