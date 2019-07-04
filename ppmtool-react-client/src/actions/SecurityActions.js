@@ -36,7 +36,6 @@ export const login = LoginRequest => async dispatch => {
       type: SET_CURRENT_USER,
       payload: decoded
     });
-    await axios.get;
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
