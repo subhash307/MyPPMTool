@@ -5,7 +5,6 @@ import {
   GET_PROJECT_TASK,
   DELETE_PROJECT_TASK
 } from "../actions/types";
-import errorReducer from "../reducers/errorReducer";
 
 export const addProjectTask = (
   backlog_id,
